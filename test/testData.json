@@ -1,0 +1,52 @@
+{
+    "addTicketData": {
+        "ticketId": "B001223",
+        "customerName": "Pallavi",
+        "customerAge": 29,
+        "movieTitle": "Pathaan",
+        "ticketPrice": 500,
+        "movieTime": "9PM",
+        "movieLanguage": "Hindi",
+        "theatreName": "Cinepolis",
+        "month": "October"
+    },
+    "addNewTicketwithoutId": {
+        "customerName": "Pallavi",
+        "customerAge": 29,
+        "movieTitle": "Pathaan",
+        "ticketPrice": 500,
+        "movieTime": "9PM",
+        "movieLanguage": "Hindi",
+        "theatreName": "Cinepolis",
+        "month": "October"
+    },
+    "deleteTicketId": {
+        "id": "C9012376"
+    },
+    "deleteIncorrectId": {
+        "id": "9012376"
+    },
+    "updateTicketDetails": {
+        "ticketId": "A0012376",
+        "customerName": "Pallavi",
+        "customerAge": 29,
+        "movieTitle": "Bazigar",
+        "ticketPrice": 500,
+        "movieTime": "9PM",
+        "movieLanguage": "Hindi",
+        "theatreName": "Cinepolis",
+        "month": "October"
+    },
+    "updateTicketId": {
+        "id": "A0012376"
+    },
+    "updateWrongId": {
+        "id": "60cc23243c"
+    },
+    "getTicketDetailsId": {
+        "id": "A0012376"
+    },
+    "getTicketDetailsWrongId": {
+        "id": "abc123"
+    }
+}

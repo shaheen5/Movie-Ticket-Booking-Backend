@@ -79,11 +79,19 @@ class TicketBookController {
     findTicketById = async (req, res) => {
         try {
             const ticketId = req.params.ticketId;
-            const resultData = await ticketBookingService.findTicketById(ticketId)
-            res.status(200).send({
-                success: true,
-                data: resultData,
-            });
+            const resultData = await ticketBookingService.findTicketById(ticketId);
+            if (resultData == null) {
+                return res.status(404).send({
+                    success: false,
+                    message: 'Ticket Not Found!'
+                });
+            } else {
+                res.status(200).send({
+                    success: true,
+                    message:'Found Ticket Details successfully!',
+                    data: resultData,
+                });
+            }
 
         } catch (error) {
             return res.status(500).send({ message: error.message });
