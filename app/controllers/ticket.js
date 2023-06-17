@@ -109,7 +109,7 @@ findTicketById =  (req, res) => {
                 }
             });
     } catch (error) {
-        return res.send({ message: error.message });
+        return res.status(500).send({ message: error.message });
     }
 };
 /**
@@ -123,7 +123,7 @@ removeTicket = async (req, res) => {
     try {
         const result =await  ticketBookingService.removeTicketById(req.params.ticketId);
             if (!result) {
-                return res.status(500).send({
+                return res.status(400).send({
                     success: false,
                     message: "Error deleting ticket with id "
                 });
@@ -133,7 +133,7 @@ removeTicket = async (req, res) => {
                 message: result
             });
     } catch (error) {
-        return res.send({
+        return res.status(500).send({
             message: error.message
         });
     }
@@ -160,20 +160,18 @@ updateTicketDetails = (req, res) => {
         }
         const data=ticketBookingService.updateTicketDetails(req.params.ticketId, req.body);
         if(data){
-            res.send({
+            res.status(200).send({
                 success: true,
                 message: "Ticket Details Updated Successfully!",
-                data:data
             })
         }else{
-            res.send({
+            res.status(304).send({
                 success: false,
-                message: "Ticket Details Not Updated!",
-                data:data
+                message: "Ticket Details Not Modified!",
             });
         }
     } catch (error) {
-        return res.send({
+        return res.status(500).send({
             success: false,
             message: error.message
         });
