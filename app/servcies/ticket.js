@@ -1,5 +1,5 @@
 const ticketModel = require('../models/ticket');
-const { logger } = require('./config/logger');
+const { logger } = require('../../config/logger');
 
 class TicketBookingService {
     /**
@@ -48,17 +48,6 @@ class TicketBookingService {
     findTicketById = (ticketId) => {
         try {
             return ticketModel.findTicketById(ticketId)
-                .then(ticketData => {
-                    if (!ticketData) {
-                        return "Data not found!";
-                    } else {
-                        logger.info(addressBookData);
-                        return ticketData;
-                    }
-                }).catch(error => {
-                    logger.error(error.message);
-                    return "Some error occured while retrieving ticket"
-                });
         } catch (error) {
             logger.error(error.message);
             return error.message;

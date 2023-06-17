@@ -1,6 +1,6 @@
 const { sq } = require("../../config/db.config");
 const { DataTypes } = require("sequelize");
-const {logger} = require('./logger');
+const {logger} = require('../../config/logger');
 
 const Ticket = sq.define("ticket", {
     ticketId: {
@@ -78,15 +78,7 @@ class TicketOperations {
         */
     findTicketById = (ticketId) => {
         try {
-             return Ticket.findOne({ where: { ticketId: ticketId } }).then((ticketData) => {
-                if(!ticketData) {
-                    return "Ticket Does Not Exist!"
-                }else{
-                    return ticketData;
-                }       
-            }).catch(error=>{
-                return error;
-            });
+             return Ticket.findOne({ where: { ticketId: ticketId } })
         } catch (error) {
             logger.error('Error::' + error);
         }

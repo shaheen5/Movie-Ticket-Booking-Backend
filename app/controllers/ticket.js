@@ -51,7 +51,7 @@ class TicketBookController {
    * @param {*} res (express property)
    * @returns HTTP status and object
    */
-    getAllTickets = async(req, res) => {
+    getAllTickets = async (req, res) => {
         try {
             const contacts = await ticketBookingService.findAllTickets();
             if (!contacts) {
@@ -63,65 +63,42 @@ class TicketBookController {
                     message: "Successfully Retrieved All Tickets !"
                 });
             }
-    } catch(error) {
-        return res.status(500).send({
-            success: false,
-            message: error.message
-        });
-    }
-};
-/**
-* function to call the findTicketById function of service that gets the required addressbook data from db
-* @param {*} req (express property)
-* @param {*} res (express property)
-* @returns HTTP status and employee object
-*/
-findTicketById =  (req, res) => {
-    try {
-        const ticketId = req.params.ticketId;
-         return ticketBookingService.findTicketById(ticketId)
-            .then((resultData) => {
-                if (resultData) {
-                    res.status(200).send({
-                        success: true,
-                        data: resultData,
-                        message: "Found Ticket Details successfully!"
-                    });
-                } else {
-                    return res.status(404).send({
-                        success: false,
-                        message: "Data is not available for given id"
-                    });
-                }
-            }).then(error => {
-                if (error) {
-                    if (error.kind === 'ObjectId') {
-                        return res.status(404).send({
-                            success: false,
-                            message: "Ticket not found"
-                        });
-                    } else {
-                        return res.status(500).send({
-                            success: false,
-                            message: "Error retrieving ticket details"
-                        });
-                    }
-                }
+        } catch (error) {
+            return res.status(500).send({
+                success: false,
+                message: error.message
             });
-    } catch (error) {
-        return res.status(500).send({ message: error.message });
-    }
-};
-/**
-* function to call the removeTicketById function of service layer that deletes
-*  the required ticket data from the db 
-* @param {*} req (express property)
-* @param {*} res (express property)
-* @returns HTTP status and object
-*/
-removeTicket = async (req, res) => {
-    try {
-        const result =await  ticketBookingService.removeTicketById(req.params.ticketId);
+        }
+    };
+    /**
+    * function to call the findTicketById function of service that gets the required addressbook data from db
+    * @param {*} req (express property)
+    * @param {*} res (express property)
+    * @returns HTTP status and employee object
+    */
+    findTicketById = async (req, res) => {
+        try {
+            const ticketId = req.params.ticketId;
+            const resultData = await ticketBookingService.findTicketById(ticketId)
+            res.status(200).send({
+                success: true,
+                data: resultData,
+            });
+
+        } catch (error) {
+            return res.status(500).send({ message: error.message });
+        }
+    };
+    /**
+    * function to call the removeTicketById function of service layer that deletes
+    *  the required ticket data from the db 
+    * @param {*} req (express property)
+    * @param {*} res (express property)
+    * @returns HTTP status and object
+    */
+    removeTicket = async (req, res) => {
+        try {
+            const result = await ticketBookingService.removeTicketById(req.params.ticketId);
             if (!result) {
                 return res.status(400).send({
                     success: false,
@@ -132,50 +109,50 @@ removeTicket = async (req, res) => {
                 success: true,
                 message: result
             });
-    } catch (error) {
-        return res.status(500).send({
-            message: error.message
-        });
-    }
-};
-/**
-* function to call the update function that updates the required ticket data from db
-* @param {*} req (express property)
-* @param {*} res (express property)
-* @returns HTTP status and object
-*/
-updateTicketDetails = (req, res) => {
-    try {
-        //check whether request body contains 8 input properties
-        if (Object.keys(req.body).length != 8) {
-            return res.status(400).send({ success: false, message: "Invalid Input!" });
-        }
-        //validate req body 
-        let validationResult = ticketBookValidator.validate(req.body);
-        if (validationResult.error) {
-            return res.status(400).send({
-                success: false,
-                message: validationResult.error.details[0].message
+        } catch (error) {
+            return res.status(500).send({
+                message: error.message
             });
         }
-        const data=ticketBookingService.updateTicketDetails(req.params.ticketId, req.body);
-        if(data){
-            res.status(200).send({
-                success: true,
-                message: "Ticket Details Updated Successfully!",
-            })
-        }else{
-            res.status(304).send({
+    };
+    /**
+    * function to call the update function that updates the required ticket data from db
+    * @param {*} req (express property)
+    * @param {*} res (express property)
+    * @returns HTTP status and object
+    */
+    updateTicketDetails = (req, res) => {
+        try {
+            //check whether request body contains 8 input properties
+            if (Object.keys(req.body).length != 8) {
+                return res.status(400).send({ success: false, message: "Invalid Input!" });
+            }
+            //validate req body 
+            let validationResult = ticketBookValidator.validate(req.body);
+            if (validationResult.error) {
+                return res.status(400).send({
+                    success: false,
+                    message: validationResult.error.details[0].message
+                });
+            }
+            const data = ticketBookingService.updateTicketDetails(req.params.ticketId, req.body);
+            if (data) {
+                res.status(200).send({
+                    success: true,
+                    message: "Ticket Details Updated Successfully!",
+                })
+            } else {
+                res.status(304).send({
+                    success: false,
+                    message: "Ticket Details Not Modified!",
+                });
+            }
+        } catch (error) {
+            return res.status(500).send({
                 success: false,
-                message: "Ticket Details Not Modified!",
+                message: error.message
             });
         }
-    } catch (error) {
-        return res.status(500).send({
-            success: false,
-            message: error.message
-        });
-    }
-};
+    };
 }
 module.exports = new TicketBookController();
