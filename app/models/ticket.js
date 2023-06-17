@@ -1,6 +1,6 @@
 const { sq } = require("../../config/db.config");
 const { DataTypes } = require("sequelize");
-
+const {logger} = require('./logger');
 
 const Ticket = sq.define("ticket", {
     ticketId: {
@@ -32,7 +32,7 @@ const Ticket = sq.define("ticket", {
 });
 
 Ticket.sync().then(() => {
-    console.log("User Model synced");
+    logger.info("User Model synced");
 });
 
 class TicketOperations {
@@ -68,7 +68,7 @@ class TicketOperations {
             const tickets = await Ticket.findAll();
             return tickets;
         } catch (error) {
-            console.error('Error::' + err);
+            logger.error('Error::' + err);
         }
     }
     /**
@@ -88,7 +88,7 @@ class TicketOperations {
                 return error;
             });
         } catch (error) {
-            console.error('Error::' + error);
+            logger.error('Error::' + error);
         }
     }
     /**
@@ -113,10 +113,9 @@ class TicketOperations {
                     ticketId: ticketId
                 }
             });
-            console.log("data=",data)
             return data;
         } catch (error) {
-            console.error('Error::' + error);
+            logger.error('Error::' + error);
         }
     }
     /**
@@ -133,7 +132,7 @@ class TicketOperations {
                 }
             });
         } catch (err) {
-            console.error('Error::' + error);
+            logger.error('Error::' + error);
         }
         return data;
     }

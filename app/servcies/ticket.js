@@ -1,4 +1,5 @@
 const ticketModel = require('../models/ticket');
+const { logger } = require('./config/logger');
 
 class TicketBookingService {
     /**
@@ -11,14 +12,16 @@ class TicketBookingService {
         try {
             ticketModel.createTicket(ticketData, (error, data) => {
                 if (error) {
+                    logger.error(error.message);
                     callback(error, null);
                 }
                 else {
-                    console.log(data);
+                    logger.info(data);
                     callback(null, data);
                 }
             });
         } catch (error) {
+            logger.error(error.message);
             return callback(error, null);
         }
     }
@@ -31,6 +34,7 @@ class TicketBookingService {
             const allTickets = await ticketModel.findAllTickets();
             return allTickets;
         } catch (error) {
+            logger.error(error.message);
             return error;
         }
     };
@@ -48,14 +52,15 @@ class TicketBookingService {
                     if (!ticketData) {
                         return "Data not found!";
                     } else {
-                        // logger.info(addressBookData);
+                        logger.info(addressBookData);
                         return ticketData;
                     }
                 }).catch(error => {
-                   // logger.error(error.message);
+                    logger.error(error.message);
                     return "Some error occured while retrieving ticket"
                 });
         } catch (error) {
+            logger.error(error.message);
             return error.message;
         }
     }
@@ -67,7 +72,7 @@ class TicketBookingService {
   */
     removeTicketById = async (ticketId) => {
         try {
-           return await ticketModel.removeTicket(ticketId);
+            return await ticketModel.removeTicket(ticketId);
         } catch (error) {
             return error.message;
         }
@@ -82,6 +87,7 @@ class TicketBookingService {
         try {
             return ticketModel.updateTicketById(ticketId, ticketData);
         } catch (error) {
+            logger.error(error.message);
             return error.message;
         }
     };

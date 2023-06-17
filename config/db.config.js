@@ -1,4 +1,6 @@
-const { Sequelize, Model, DataTypes } = require("sequelize");
+const { Sequelize} = require("sequelize");
+const {logger} = require('./logger');
+
 
 const hostName = process.env.HOST;
 const userName = process.env.USER;
@@ -21,9 +23,9 @@ const sequelize = new Sequelize(database, userName, password, {
 const dbConnection = async () => {
     try {
         await sequelize.authenticate();
-        console.log("Database Connection has been established successfully.");
+        logger.info("Database Connection has been established successfully.");
     } catch (error) {
-        console.error("Unable to connect to the database:", error);
+        logger.error("Unable to connect to the database:", error);
     }
 };
 module.exports = { sq: sequelize, dbConnection };

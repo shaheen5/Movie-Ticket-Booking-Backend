@@ -1,6 +1,6 @@
 const express = require('express');
 require('dotenv').config();
-const { Sequelize, Model, DataTypes } = require("sequelize");
+const {logger} = require('./logger');
 
 //create express app
 const app = express();
@@ -24,7 +24,7 @@ app.get('/',(req,res)=>{
 });
 
 app.listen(process.env.PORT,()=>{
-    console.log(`Server is listening at port ${process.env.PORT}`);
+    logger.info(`Server is listening at port ${process.env.PORT}`);
 });
 
 module.exports = app;

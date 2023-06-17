@@ -158,7 +158,6 @@ updateTicketDetails = (req, res) => {
                 message: validationResult.error.details[0].message
             });
         }
-        console.log("id=",req.params.ticketId)
         const data=ticketBookingService.updateTicketDetails(req.params.ticketId, req.body);
         if(data){
             res.send({
