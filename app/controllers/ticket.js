@@ -11,8 +11,8 @@ class TicketBookController {
 
     createNewTicket = (req, res) => {
         try {
-            //check whether request body input length is 4 
-            if (Object.keys(req.body).length != 8) {
+            //check whether request body input length is 9 
+            if (Object.keys(req.body).length != 9) {
                 return res.status(400).send({ success: false, message: "Invalid Input!" });
             }
             //validate req body 
@@ -123,8 +123,8 @@ class TicketBookController {
     */
     updateTicketDetails = (req, res) => {
         try {
-            //check whether request body contains 8 input properties
-            if (Object.keys(req.body).length != 8) {
+            //check whether request body contains 9 input properties
+            if (Object.keys(req.body).length != 9) {
                 return res.status(400).send({ success: false, message: "Invalid Input!" });
             }
             //validate req body 
@@ -154,5 +154,23 @@ class TicketBookController {
             });
         }
     };
+    /**
+   * function to get analytics for profit summary
+   * @param {*} req (express property)
+   * @param {*} res (express property)
+   * @returns HTTP status and object
+   */
+    getProfitData = async (req, res) => {
+        try {
+            const resultData = await ticketBookingService.getProfitData();
+            res.status(200).send({
+                success: true,
+                data: resultData,
+            });
+
+        } catch (error) {
+            return res.status(500).send({ message: error.message });
+        }
+    }
 }
 module.exports = new TicketBookController();

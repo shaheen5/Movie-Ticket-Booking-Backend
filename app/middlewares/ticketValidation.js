@@ -33,6 +33,8 @@ const ticketObjectSchema = joi.object({
     theatreName: joi.string()
         .min(3)
         .max(20)
+        .required(),
+    month: joi.string()
         .required()
 });
 module.exports = ticketObjectSchema;

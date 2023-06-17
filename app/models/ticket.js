@@ -28,6 +28,9 @@ const Ticket = sq.define("ticket", {
     },
     theatreName: {
         type: DataTypes.STRING,
+    },
+    month: {
+        type: DataTypes.STRING,
     }
 });
 
@@ -53,6 +56,7 @@ class TicketOperations {
                 movieTime: ticketData.movieTime,
                 movieLanguage: ticketData.movieLanguage,
                 theatreName: ticketData.theatreName,
+                month:ticketData.month
             });
             return createdTicket ? callback(null, createdTicket) : ('Something error occurred!', null);
         } catch (error) {
@@ -100,6 +104,7 @@ class TicketOperations {
                 movieTime: ticketData.movieTime,
                 movieLanguage: ticketData.movieLanguage,
                 theatreName: ticketData.theatreName,
+                month:ticketData.month
             }, {
                 where: {
                     ticketId: ticketId
@@ -127,6 +132,21 @@ class TicketOperations {
             logger.error('Error::' + error);
         }
         return data;
+    }
+    calculateProfitData=async ()=>{
+        try{
+        const profitData = await Ticket.findAll({
+            attributes: [
+              'month',
+              [sequelize.fn('sum', sequelize.col('ticketPrice')), 'summaryProfit'],
+            ],
+            group: ['month'],
+          });
+          console.log(profitData);
+          return profitData;
+        }catch (err) {
+            logger.error('Error::' + error);
+        }
     }
 }
 module.exports = new TicketOperations();

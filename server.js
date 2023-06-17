@@ -27,7 +27,7 @@ dbConnection();
 
 //define a simple route
 app.get('/',(req,res)=>{
-    res.json({"message" : "Welcome To Employee Payroll Application"});
+    res.json({"message" : "Welcome To Ticket Booking Portal"});
 });
 
 app.listen(process.env.PORT,()=>{

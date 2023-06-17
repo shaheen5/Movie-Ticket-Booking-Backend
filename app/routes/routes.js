@@ -17,4 +17,7 @@ module.exports = (app) => {
      //delete ticket
      app.delete('/ticket/:ticketId',helper.authenticateToken,ticketController.removeTicket);
 
+     //get profit summary between date range
+     app.get('tickets/analytics/visited?method=db-aggregation',helper.authenticateToken,ticketController.getProfitData)
+
 }

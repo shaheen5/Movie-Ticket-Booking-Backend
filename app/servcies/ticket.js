@@ -80,5 +80,13 @@ class TicketBookingService {
             return error.message;
         }
     };
+    getProfitData=()=>{
+        try {
+            return ticketModel.calculateProfitData();
+        } catch (error) {
+            logger.error(error.message);
+            return error.message;
+        }
+    }
 }
 module.exports = new TicketBookingService();
