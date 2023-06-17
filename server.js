@@ -1,10 +1,11 @@
 const express = require('express');
 require('dotenv').config();
 const {logger} = require('./config/logger');
-
+var cors = require('cors')
 
 //create express app
 const app = express();
+app.use(cors());
 
 //parse requests of content-type application/x-www-form-urlencoded
 app.use(express.urlencoded({extended:true}))

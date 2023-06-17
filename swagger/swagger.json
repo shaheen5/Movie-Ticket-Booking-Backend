@@ -39,7 +39,7 @@
                 },
                 "security": [
                     {
-                        "JWT": []
+                        "BasicAuth": []
                     }
                 ]
             }
@@ -65,7 +65,7 @@
                 },
                 "security": [
                     {
-                        "JWT": []
+                        "BasicAuth": []
                     }
                 ]
             }
@@ -76,7 +76,7 @@
                 "description": "",
                 "parameters": [
                     {
-                        "name": "contactId",
+                        "name": "ticketId",
                         "in": "path",
                         "required": true,
                         "type": "string"
@@ -101,7 +101,7 @@
                 },
                 "security": [
                     {
-                        "JWT": []
+                        "BasicAuth": []
                     }
                 ]
             },
@@ -110,7 +110,7 @@
                 "description": "",
                 "parameters": [
                     {
-                        "name": "contactId",
+                        "name": "ticketId",
                         "in": "path",
                         "required": true,
                         "type": "string"
@@ -143,7 +143,7 @@
                 },
                 "security": [
                     {
-                        "JWT": []
+                        "BasicAuth": []
                     }
                 ]
             },
@@ -152,7 +152,7 @@
                 "description": "",
                 "parameters": [
                     {
-                        "name": "contactId",
+                        "name": "ticketId",
                         "in": "path",
                         "required": true,
                         "type": "string"
@@ -177,47 +177,46 @@
                 },
                 "security": [
                     {
-                        "JWT": []
+                        "BasicAuth": []
                     }
                 ]
             }
+        }
+    },
+    "definitions": {
+        "Ticket": {
+            "type": "object",
+            "properties": {
+                "ticketId": {
+                    "type": "string"
+                },
+                "customerName": {
+                    "type": "string"
+                },
+                "customerAge": {
+                    "type": "number"
+                },
+                "movieTitle": {
+                    "type": "string"
+                },
+                "ticketPrice": {
+                    "type": "number"
+                },
+                "movietime": {
+                    "type": "string"
+                },
+                "movieLanguage": {
+                    "type": "string"
+                },
+                "theatreName": {
+                    "type": "string"
+                }
+            }
         },
-        "definitions": {
-            "Ticket": {
-                "type": "object",
-                "properties": {
-                    "ticketId": {
-                        "type": "string"
-                    },
-                    "customerName": {
-                        "type": "string"
-                    },
-                    "customerAge": {
-                        "type": "number"
-                    },
-                    "movieTitle": {
-                        "type": "string"
-                    },
-                    "ticketPrice": {
-                        "type": "number"
-                    },
-                    "movietime": {
-                        "type": "string"
-                    },
-                    "movieLanguage": {
-                        "type": "string"
-                    },
-                    "theatreName": {
-                        "type": "string"
-                    }
-                }
-            },
-            "securityDefinitions": {
-                "JWT": {
-                    "type": "apiKey",
-                    "name": "Authorization",
-                    "in": "header"
-                }
+        "securityDefinitions": {
+            "basicAuth": {
+                "type": "http",
+                "scheme": "basic"
             }
         }
     }
