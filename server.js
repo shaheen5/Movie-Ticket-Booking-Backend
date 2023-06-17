@@ -11,6 +11,9 @@ app.use(express.urlencoded({extended:true}))
 // parse requests of content-type - application/json
 app.use(express.json());
 
+// Require routes
+require('./app/routes/routes')(app);
+
 // Configuring the database
 const {dbConnection}=require("./config/db.config");
 dbConnection();
