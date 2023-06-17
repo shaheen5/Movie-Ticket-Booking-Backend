@@ -1,20 +1,20 @@
 module.exports = (app) => {
     const ticketController = require('../controllers/ticket');
+    const helper=require('../middlewares/helper');
     
     // Create a new ticket
-    app.post('/ticket',ticketController.createNewTicket );
+    app.post('/ticket',helper.authenticateToken,ticketController.createNewTicket );
 
     //get all tickets
-    app.get('/tickets',ticketController.getAllTickets);
+    app.get('/tickets',helper.authenticateToken,ticketController.getAllTickets);
 
      //get ticket by id
-     app.get('/ticket/:ticketId',ticketController.findTicketById);
+     app.get('/ticket/:ticketId',helper.authenticateToken,ticketController.findTicketById);
 
      //update ticket
-     app.put('/ticket/:ticketId',ticketController.updateTicketDetails);
+     app.put('/ticket/:ticketId',helper.authenticateToken,ticketController.updateTicketDetails);
 
      //delete ticket
-     app.delete('/ticket/:ticketId',ticketController.removeTicket);
+     app.delete('/ticket/:ticketId',helper.authenticateToken,ticketController.removeTicket);
 
-   
 }
